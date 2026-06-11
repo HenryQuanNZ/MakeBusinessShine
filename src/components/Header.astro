@@ -1,0 +1,65 @@
+---
+import {
+  getLangFromUrl,
+  useTranslations,
+  switchLanguageUrl,
+  localizedPath,
+  pathWithoutLocale,
+} from '../i18n/ui';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const here = pathWithoutLocale(Astro.url.pathname).replace(/\/$/, '') || '/';
+
+const links = [
+  { key: 'nav.home', path: '/' },
+  { key: 'nav.packages', path: '/packages' },
+  { key: 'nav.work', path: '/work' },
+  { key: 'nav.about', path: '/about' },
+  { key: 'nav.contact', path: '/contact' },
+] as const;
+
+const altLang = lang === 'en' ? 'zh' : 'en';
+const altHref = switchLanguageUrl(Astro.url.pathname, altLang);
+---
+
+<header class="border-b border-line">
+  <div class="mx-auto flex max-w-[1100px] flex-wrap items-center justify-between gap-y-3 px-5 py-4 sm:px-6 sm:py-5">
+    <a
+      href={localizedPath('/', lang)}
+      class="font-semibold tracking-tight text-ink no-underline hover:no-underline"
+    >
+      {t('site.name')}
+    </a>
+
+    <nav aria-label="Primary" class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm sm:gap-x-6">
+      {
+        links.map((link) => {
+          const href = localizedPath(link.path, lang);
+          const normalizedHref = href.replace(/\/$/, '') || '/';
+          const isActive = normalizedHref === (lang === 'en' ? here : `/zh${here === '/' ? '' : here}`);
+          return (
+            <a
+              href={href}
+              class:list={[
+                'text-ink no-underline hover:text-pounamu hover:no-underline',
+                isActive && 'text-pounamu',
+              ]}
+              aria-current={isActive ? 'page' : undefined}
+            >
+              {t(link.key)}
+            </a>
+          );
+        })
+      }
+      <a
+        href={altHref}
+        class="ml-1 rounded-[4px] border border-line px-2 py-1 font-mono text-xs text-ink no-underline hover:border-pounamu hover:text-pounamu hover:no-underline"
+        aria-label={t('lang.switchAria')}
+        lang={altLang}
+      >
+        {t('lang.switchTo')}
+      </a>
+    </nav>
+  </div>
+</header>

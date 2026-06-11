@@ -1,0 +1,46 @@
+---
+import Button from './Button.astro';
+
+interface Props {
+  name: string;
+  price: string;
+  blurb: string;
+  bullets: string[];
+  ctaLabel: string;
+  ctaHref: string;
+  featured?: boolean;
+}
+
+const { name, price, blurb, bullets, ctaLabel, ctaHref, featured = false } = Astro.props;
+---
+
+<article
+  class:list={[
+    'flex flex-col rounded-[4px] border bg-paper p-6 sm:p-7',
+    featured ? 'border-pounamu' : 'border-line',
+  ]}
+>
+  <header class="mb-4">
+    <h3 class="text-lg font-semibold text-ink">{name}</h3>
+    <p class="mt-1 font-mono text-2xl text-pounamu">{price}</p>
+  </header>
+
+  <p class="mb-5 text-sm text-ink/80">{blurb}</p>
+
+  <ul role="list" class="mb-6 space-y-2 text-sm text-ink/90">
+    {
+      bullets.map((item) => (
+        <li class="flex items-baseline gap-2">
+          <span aria-hidden="true" class="font-mono text-pass">✓</span>
+          <span>{item}</span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="mt-auto">
+    <Button href={ctaHref} variant={featured ? 'primary' : 'secondary'}>
+      {ctaLabel}
+    </Button>
+  </div>
+</article>

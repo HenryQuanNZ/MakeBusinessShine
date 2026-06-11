@@ -1,0 +1,39 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary';
+  type?: 'button' | 'submit';
+  class?: string;
+  ariaLabel?: string;
+}
+
+const {
+  href,
+  variant = 'primary',
+  type = 'button',
+  class: extraClass = '',
+  ariaLabel,
+} = Astro.props;
+
+const base =
+  'inline-flex items-center justify-center gap-2 rounded-[4px] px-5 py-2.5 text-sm font-medium transition-colors duration-150 no-underline';
+
+const styles =
+  variant === 'primary'
+    ? 'bg-pounamu text-paper hover:bg-ink hover:no-underline'
+    : 'border border-line text-ink hover:border-pounamu hover:text-pounamu hover:no-underline';
+
+const className = `${base} ${styles} ${extraClass}`.trim();
+---
+
+{
+  href ? (
+    <a href={href} class={className} aria-label={ariaLabel}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type} class={className} aria-label={ariaLabel}>
+      <slot />
+    </button>
+  )
+}

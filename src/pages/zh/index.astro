@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Scorecard from '../../components/Scorecard.astro';
+import Button from '../../components/Button.astro';
+import { useTranslations } from '../../i18n/ui';
+
+const t = useTranslations('zh');
+---
+
+<BaseLayout
+  title="MakeBusinessShine — 经过测试的双语网站"
+  description="惠灵顿本地建站工作室。为小生意打造五页双语网站,端到端测试,七个工作日交付。"
+>
+  <section class="mx-auto max-w-[1100px] px-5 pb-12 pt-16 sm:px-6 sm:pt-24">
+    <p class="font-mono text-xs uppercase tracking-widest text-pounamu">{t('site.tagline')}</p>
+    <h1 class="mt-4 text-3xl font-bold tracking-tight text-ink sm:text-5xl">
+      为本地生意做的网站 — 测试过,不是碰运气。
+    </h1>
+    <p class="mt-5 max-w-2xl text-base text-ink/80 sm:text-lg">
+      Phase 1 占位页。Hero、套餐、流程将在 Phase 2 完成。
+    </p>
+    <div class="mt-7 flex flex-wrap gap-3">
+      <Button href="/zh/packages" variant="primary">{t('cta.viewPackages')}</Button>
+      <Button href="/zh/contact" variant="secondary">{t('cta.start')}</Button>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-5 pb-20 sm:px-6">
+    <Scorecard />
+  </section>
+</BaseLayout>

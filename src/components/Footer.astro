@@ -1,0 +1,30 @@
+---
+import { getLangFromUrl, useTranslations, localizedPath } from '../i18n/ui';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+const rights = t('footer.rights').replace('{year}', String(year));
+---
+
+<footer class="mt-24 border-t border-line">
+  <div class="mx-auto max-w-[1100px] px-5 py-10 sm:px-6">
+    <p class="font-mono text-sm text-ink">{t('footer.tagline')}</p>
+
+    <div class="mt-6 flex flex-wrap items-center justify-between gap-4 text-sm">
+      <div class="flex flex-wrap gap-5">
+        <a href={localizedPath('/contact', lang)} class="text-ink no-underline hover:text-pounamu">
+          {t('footer.contact')}
+        </a>
+        <a
+          href="https://github.com/HenryQuanNZ/MakeBusinessShine"
+          class="text-ink no-underline hover:text-pounamu"
+          rel="noopener"
+        >
+          {t('footer.github')}
+        </a>
+      </div>
+      <p class="text-xs text-ink/60">{rights}</p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,96 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/ui';
+
+interface Row {
+  label: string;
+  value: string;
+  note?: string;
+}
+
+interface Props {
+  title?: string;
+  rows?: Row[];
+  caption?: string;
+}
+
+const lang = getLangFromUrl(Astro.url);
+
+const defaultTitle = lang === 'zh' ? '测试报告 — 本站' : 'Test report — this site';
+const defaultCaption =
+  lang === 'zh'
+    ? '我交付的每个站,都附带这份报告。'
+    : 'Every site I deliver ships with this report.';
+
+const defaultRows: Row[] = lang === 'zh'
+  ? [
+      { label: '性能',        value: '100' },
+      { label: '可访问性',    value: '100' },
+      { label: '最佳实践',    value: '100' },
+      { label: 'SEO',         value: '100' },
+      { label: '移动端',      value: 'PASS', note: '真机测试' },
+      { label: '跨浏览器',    value: 'PASS', note: 'Chrome / Safari / Firefox / Edge' },
+      { label: '表单',        value: 'PASS', note: '自动化 E2E 测试' },
+    ]
+  : [
+      { label: 'Performance',    value: '100' },
+      { label: 'Accessibility',  value: '100' },
+      { label: 'Best Practices', value: '100' },
+      { label: 'SEO',            value: '100' },
+      { label: 'Mobile',         value: 'PASS', note: 'tested on real devices' },
+      { label: 'Cross-browser',  value: 'PASS', note: 'Chrome / Safari / Firefox / Edge' },
+      { label: 'Forms',          value: 'PASS', note: 'automated E2E tests' },
+    ];
+
+const { title = defaultTitle, rows = defaultRows, caption = defaultCaption } = Astro.props;
+
+const labelWidth = Math.max(...rows.map((r) => r.label.length));
+---
+
+<section
+  aria-label={title}
+  class="scorecard rounded-[4px] border border-line bg-[var(--color-mono-bg)] p-5 sm:p-6 font-mono text-[13px] sm:text-sm leading-relaxed text-ink"
+>
+  <p class="mb-3 text-xs uppercase tracking-wider text-ink/60">{title}</p>
+
+  <ul role="list" class="space-y-1">
+    {
+      rows.map((row, i) => (
+        <li class="scorecard-row flex items-baseline gap-3" style={`--row-index: ${i}`}>
+          <span aria-hidden="true" class="text-[var(--color-pass)]">✓</span>
+          <span class="inline-block" style={`min-width: ${labelWidth}ch`}>{row.label}</span>
+          <span class="font-medium">{row.value}</span>
+          {row.note && <span class="text-ink/60">({row.note})</span>}
+        </li>
+      ))
+    }
+  </ul>
+
+  <hr class="my-4 border-line" />
+  <p class="text-ink/70">{caption}</p>
+</section>
+
+<style>
+  .scorecard-row {
+    opacity: 0;
+    animation: scorecard-fade-in 320ms ease-out forwards;
+    animation-delay: calc(var(--row-index) * 90ms + 120ms);
+  }
+
+  @keyframes scorecard-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(2px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scorecard-row {
+      opacity: 1;
+      animation: none;
+    }
+  }
+</style>

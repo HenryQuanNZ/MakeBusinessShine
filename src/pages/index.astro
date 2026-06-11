@@ -1,17 +1,31 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Scorecard from '../components/Scorecard.astro';
+import Button from '../components/Button.astro';
+import { useTranslations } from '../i18n/ui';
 
+const t = useTranslations('en');
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="MakeBusinessShine — Tested. Bilingual. Affordable."
+  description="Wellington-based bilingual web studio. Five-page websites for local businesses, tested end-to-end, delivered in seven working days."
+>
+  <section class="mx-auto max-w-[1100px] px-5 pb-12 pt-16 sm:px-6 sm:pt-24">
+    <p class="font-mono text-xs uppercase tracking-widest text-pounamu">{t('site.tagline')}</p>
+    <h1 class="mt-4 text-3xl font-bold tracking-tight text-ink sm:text-5xl">
+      Websites for local businesses — tested, not guessed.
+    </h1>
+    <p class="mt-5 max-w-2xl text-base text-ink/80 sm:text-lg">
+      Phase 1 placeholder. Hero, packages, and process land in Phase 2.
+    </p>
+    <div class="mt-7 flex flex-wrap gap-3">
+      <Button href="/packages" variant="primary">{t('cta.viewPackages')}</Button>
+      <Button href="/contact" variant="secondary">{t('cta.start')}</Button>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-5 pb-20 sm:px-6">
+    <Scorecard />
+  </section>
+</BaseLayout>
