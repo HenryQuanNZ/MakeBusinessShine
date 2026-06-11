@@ -1,0 +1,167 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/Button.astro';
+
+// TODO Phase 4: replace with the real Formspree endpoint.
+const FORM_ACTION = 'https://formspree.io/f/REPLACE_ME';
+
+const timeline = [
+  {
+    when: '第 0 天',
+    title: '你提交这份表单',
+    body: '我会在一个工作日内回复,带着固定报价、交付日期,以及如果有什么不清楚的地方,我也一起问。',
+  },
+  {
+    when: '第 1 天',
+    title: '定金 + brief',
+    body: '50% 定金锁住档期。我们 30 分钟电话过一遍,然后我整理成一页 brief 让你签字。',
+  },
+  {
+    when: '第 2–5 天',
+    title: '在 staging 上开发',
+    body: '你能看到 staging URL 每天更新。每天傍晚我会发一条短消息告诉你今天做了什么,不用你猜进度。',
+  },
+  {
+    when: '第 6 天',
+    title: '修改轮',
+    body: '你把修改意见一次性发给我,我做完再发回去给你看。',
+  },
+  {
+    when: '第 7 天',
+    title: '上线',
+    body: '尾款 50% 付清,网站上你的域名,带 SSL、分析、以及上线后 30 天免费修补窗口。',
+  },
+];
+---
+
+<BaseLayout
+  title="联系 — MakeBusinessShine"
+  description="用两句话告诉我你做什么生意。我在一个工作日内回复,带固定报价和交付日期。"
+>
+  <section class="mx-auto max-w-[1100px] px-5 pb-12 pt-16 sm:px-6 sm:pt-24">
+    <p class="font-mono text-xs uppercase tracking-widest text-pounamu">联系</p>
+    <h1 class="mt-4 max-w-3xl text-3xl font-bold tracking-tight text-ink sm:text-5xl">
+      两句话。一个工作日。
+    </h1>
+    <p class="mt-5 max-w-2xl text-base text-ink/80 sm:text-lg">
+      告诉我你做什么生意、目前缺什么。我会在一个工作日内回复你 —
+      带着固定报价和交付日期,或者一句诚实的"我不是适合你的人"。
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-5 pb-20 sm:px-6">
+    <div class="grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-12">
+      <form
+        action={FORM_ACTION}
+        method="POST"
+        class="space-y-5 rounded-[4px] border border-line bg-paper p-6 sm:p-7"
+      >
+        <div>
+          <label for="name" class="block text-sm font-medium text-ink">你的姓名</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            autocomplete="name"
+            class="mt-1.5 w-full rounded-[4px] border border-line bg-paper px-3 py-2.5 text-ink outline-none focus:border-pounamu"
+          />
+        </div>
+
+        <div>
+          <label for="business" class="block text-sm font-medium text-ink">生意名称</label>
+          <input
+            type="text"
+            id="business"
+            name="business"
+            required
+            autocomplete="organization"
+            class="mt-1.5 w-full rounded-[4px] border border-line bg-paper px-3 py-2.5 text-ink outline-none focus:border-pounamu"
+          />
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-ink">邮箱</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            autocomplete="email"
+            class="mt-1.5 w-full rounded-[4px] border border-line bg-paper px-3 py-2.5 text-ink outline-none focus:border-pounamu"
+          />
+        </div>
+
+        <div>
+          <label for="budget" class="block text-sm font-medium text-ink">预算</label>
+          <select
+            id="budget"
+            name="budget"
+            required
+            class="mt-1.5 w-full rounded-[4px] border border-line bg-paper px-3 py-2.5 text-ink outline-none focus:border-pounamu"
+          >
+            <option value="">选一个范围</option>
+            <option value="starter">入门 — NZ$890 左右</option>
+            <option value="standard">标准 — NZ$1,490 左右</option>
+            <option value="bilingual">双语 — NZ$2,290 左右</option>
+            <option value="unsure">还没定 — 可以聊聊</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="message" class="block text-sm font-medium text-ink">你需要什么?</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            required
+            class="mt-1.5 w-full rounded-[4px] border border-line bg-paper px-3 py-2.5 text-ink outline-none focus:border-pounamu"
+            placeholder="两句话就够了。你做什么生意,目前缺什么?"
+          ></textarea>
+        </div>
+
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+        <Button type="submit" variant="primary">发送</Button>
+        <p class="font-mono text-xs text-ink/60">
+          你填的内容只发到我的邮箱。没有 newsletter,也没有追踪像素。
+        </p>
+      </form>
+
+      <aside>
+        <header class="mb-5">
+          <p class="font-mono text-xs uppercase tracking-wider text-pounamu">时间线</p>
+          <h2 class="mt-2 text-xl font-semibold text-ink sm:text-2xl">从表单到上线。</h2>
+        </header>
+        <ol class="space-y-4">
+          {
+            timeline.map((step) => (
+              <li class="rounded-[4px] border border-line bg-paper p-4 sm:p-5">
+                <p class="font-mono text-xs uppercase tracking-wider text-pounamu">{step.when}</p>
+                <p class="mt-1.5 font-semibold text-ink">{step.title}</p>
+                <p class="mt-1.5 text-sm text-ink/80">{step.body}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </aside>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-5 pb-24 sm:px-6">
+    <div class="rounded-[4px] border border-line bg-[var(--color-mono-bg)] p-6 sm:p-8">
+      <p class="font-mono text-xs uppercase tracking-wider text-pounamu">直接联系</p>
+      <h2 class="mt-2 text-xl font-semibold text-ink sm:text-2xl">更喜欢邮件或者聊天?</h2>
+      <ul class="mt-4 space-y-2 font-mono text-sm">
+        <li>
+          <span class="text-ink/60">邮箱&nbsp;&nbsp;</span>
+          <a href="mailto:hello@makebusinessshine.co.nz" class="text-pounamu">hello@makebusinessshine.co.nz</a>
+        </li>
+        <li>
+          <span class="text-ink/60">GitHub&nbsp;</span>
+          <a href="https://github.com/HenryQuanNZ" class="text-pounamu" rel="noopener">HenryQuanNZ</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

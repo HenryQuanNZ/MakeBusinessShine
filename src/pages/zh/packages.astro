@@ -1,0 +1,162 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PackageCard from '../../components/PackageCard.astro';
+import Button from '../../components/Button.astro';
+
+const packages = [
+  {
+    name: '入门',
+    price: 'NZ$890',
+    blurb: '一页落地站,加载快、能转化。适合个体老板"今天就要有个网站"的需求。',
+    bullets: [
+      '1 页,移动优先',
+      '联系表单直接发到你邮箱',
+      'Google 地图 + 营业时间',
+      '域名 + SSL 配置',
+      '5 个工作日交付',
+      '1 轮修改',
+    ],
+  },
+  {
+    name: '标准',
+    price: 'NZ$1,490',
+    blurb: '五个页面:首页、服务、关于、案例、联系。本地小生意的默认选择。',
+    bullets: [
+      '5 页,移动优先',
+      '联系表单、SEO 元标签、站点地图',
+      '社交分享用的 Open Graph 图',
+      '对接 Google Business 资料',
+      '7 个工作日交付',
+      '2 轮修改',
+    ],
+    featured: true,
+  },
+  {
+    name: '双语',
+    price: 'NZ$2,290',
+    blurb: '标准套餐 × 中英双语 — 我自己写中文,不用机器翻译。',
+    bullets: [
+      '5 页 × 2 种语言 = 10 个页面',
+      '中文我亲手写(不是机器翻译)',
+      '语言切换记住当前页面',
+      '双语 hreflang + 各市场 SEO',
+      '10 个工作日交付',
+      '中英各 2 轮修改',
+    ],
+  },
+];
+
+const addons = [
+  { name: '加一页', price: 'NZ$190' },
+  { name: '预约表单(Calendly / TidyCal)', price: 'NZ$150' },
+  { name: '邮件订阅(Buttondown / Mailchimp)', price: 'NZ$150' },
+  { name: '照片修图,每 10 张', price: 'NZ$120' },
+  { name: '文案撰写,每页', price: 'NZ$180' },
+  { name: '加一轮修改', price: 'NZ$120' },
+  { name: 'Logo 改版(不含全套品牌)', price: 'NZ$290' },
+];
+
+const faqs = [
+  {
+    q: '定金多少?',
+    a: '50% 锁档期,另外 50% 在上线到你域名之前付清。银行转账或 Stripe 都行,你定。',
+  },
+  {
+    q: '"一轮修改" 是什么意思?',
+    a: '你把修改意见一次性发给我,我做完再发回去给你看。东一句西一句地慢慢提,时间和耐心都耗得快,所以打包来。',
+  },
+  {
+    q: '上线之后还想改怎么办?',
+    a: '上线 30 天内,只要是我做出来的 bug,我免费修。之后小改是 NZ$80/小时,或者订下面那个 Care Plan,每月稳定维护。',
+  },
+  {
+    q: '代码和域名归谁?',
+    a: '归你。代码仓库、域名、托管账号从第一天起就在你名下。不会绑死你。',
+  },
+  {
+    q: '我可以自己出文案和照片吗?',
+    a: '可以 — 而且能省一两天工期。如果没有文案,我可以帮你写(看下面的加购项)。',
+  },
+];
+---
+
+<BaseLayout
+  title="套餐与价格 — MakeBusinessShine"
+  description="本地小生意建站,三档套餐 + NZ$39/月 Care Plan + 单项加购。固定价、固定工期。"
+>
+  <section class="mx-auto max-w-[1100px] px-5 pb-12 pt-16 sm:px-6 sm:pt-24">
+    <p class="font-mono text-xs uppercase tracking-widest text-pounamu">套餐</p>
+    <h1 class="mt-4 text-3xl font-bold tracking-tight text-ink sm:text-5xl">
+      固定价、固定工期、不会加单。
+    </h1>
+    <p class="mt-5 max-w-2xl text-base text-ink/80 sm:text-lg">
+      选适合你生意大小的套餐。每档都包含同样的自动化测试、同样的部署设置、以及同样的上线后 30 天免费修补。
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-5 pb-20 sm:px-6">
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        packages.map((p) => (
+          <PackageCard
+            name={p.name}
+            price={p.price}
+            blurb={p.blurb}
+            bullets={p.bullets}
+            ctaLabel="开始合作"
+            ctaHref="/zh/contact"
+            featured={p.featured}
+          />
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-5 pb-20 sm:px-6">
+    <div class="grid gap-6 rounded-[4px] border border-pounamu bg-paper p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center">
+      <div>
+        <p class="font-mono text-xs uppercase tracking-wider text-pounamu">Care Plan</p>
+        <h2 class="mt-2 text-2xl font-semibold text-ink sm:text-3xl">NZ$39/月 — 帮你把网站养着。</h2>
+        <p class="mt-3 max-w-2xl text-ink/80">
+          含托管、SSL、每周自动化测试、每月一份 Lighthouse 报告,加上每月最多 30 分钟的小改
+          (改价格、换员工照、改营业时间)。随时取消。
+        </p>
+      </div>
+      <Button href="/zh/contact" variant="primary">加 Care Plan</Button>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-5 pb-20 sm:px-6">
+    <header class="mb-6">
+      <p class="font-mono text-xs uppercase tracking-wider text-pounamu">加购项</p>
+      <h2 class="mt-2 text-2xl font-semibold text-ink sm:text-3xl">需要什么加什么,不打包卖你。</h2>
+    </header>
+    <ul role="list" class="divide-y divide-line rounded-[4px] border border-line bg-paper">
+      {
+        addons.map((a) => (
+          <li class="flex items-baseline justify-between gap-4 px-5 py-4">
+            <span class="text-ink">{a.name}</span>
+            <span class="font-mono text-sm text-pounamu">{a.price}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-5 pb-24 sm:px-6">
+    <header class="mb-6">
+      <p class="font-mono text-xs uppercase tracking-wider text-pounamu">常见问题</p>
+      <h2 class="mt-2 text-2xl font-semibold text-ink sm:text-3xl">大家通常会问的几件事。</h2>
+    </header>
+    <dl class="divide-y divide-line rounded-[4px] border border-line bg-paper">
+      {
+        faqs.map((f) => (
+          <div class="px-5 py-5 sm:px-6 sm:py-6">
+            <dt class="font-semibold text-ink">{f.q}</dt>
+            <dd class="mt-2 text-ink/80">{f.a}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+</BaseLayout>

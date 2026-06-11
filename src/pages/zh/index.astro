@@ -2,30 +2,145 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Scorecard from '../../components/Scorecard.astro';
 import Button from '../../components/Button.astro';
-import { useTranslations } from '../../i18n/ui';
+import PackageCard from '../../components/PackageCard.astro';
 
-const t = useTranslations('zh');
+const packages = [
+  {
+    name: '入门',
+    price: 'NZ$890',
+    blurb: '一页落地站,加载快、能转化。适合个体老板今天就要有个网站的情况。',
+    bullets: [
+      '1 页,移动优先',
+      '联系表单 + Google 地图',
+      '5 个工作日交付',
+      '1 轮修改',
+    ],
+  },
+  {
+    name: '标准',
+    price: 'NZ$1,490',
+    blurb: '五个页面:首页、服务、关于、案例、联系。本地小生意大多数选这一档。',
+    bullets: [
+      '5 页,移动优先',
+      '联系表单、SEO 元标签、站点地图',
+      '7 个工作日交付',
+      '2 轮修改',
+    ],
+    featured: true,
+  },
+  {
+    name: '双语',
+    price: 'NZ$2,290',
+    blurb: '标准套餐 × 中英双语。中文版我自己写,不用机器翻译。',
+    bullets: [
+      '5 页 × 2 种语言 = 10 个页面',
+      '中文我亲手写,不是 Google 翻译',
+      '10 个工作日交付',
+      '中英各 2 轮修改',
+    ],
+  },
+];
+
+const steps = [
+  {
+    n: '01',
+    title: '沟通',
+    body: '30 分钟电话,我整理成一页 brief 让你签字。不会发一堆问卷。',
+  },
+  {
+    n: '02',
+    title: '开发',
+    body: '在你能看到的 staging URL 上做,每天报一句进度,不会消失一周。',
+  },
+  {
+    n: '03',
+    title: '测试',
+    body: '每次改动都跑自动化端到端测试。交付前用真机再过一遍。',
+  },
+  {
+    n: '04',
+    title: '上线',
+    body: '上你的域名,带 SSL、分析、以及 30 天上线后免费修补。',
+  },
+];
 ---
 
 <BaseLayout
-  title="MakeBusinessShine — 经过测试的双语网站"
-  description="惠灵顿本地建站工作室。为小生意打造五页双语网站,端到端测试,七个工作日交付。"
+  title="MakeBusinessShine — 经过测试。双语交付。价格透明。"
+  description="惠灵顿本地建站工作室。为本地小生意做五页双语网站,上线前端到端测试,七个工作日交付。"
 >
   <section class="mx-auto max-w-[1100px] px-5 pb-12 pt-16 sm:px-6 sm:pt-24">
-    <p class="font-mono text-xs uppercase tracking-widest text-pounamu">{t('site.tagline')}</p>
-    <h1 class="mt-4 text-3xl font-bold tracking-tight text-ink sm:text-5xl">
-      为本地生意做的网站 — 测试过,不是碰运气。
+    <p class="font-mono text-xs uppercase tracking-widest text-pounamu">经过测试。双语交付。价格透明。</p>
+    <h1 class="mt-4 max-w-3xl text-3xl font-bold tracking-tight text-ink sm:text-5xl">
+      本地小生意的网站 — 测过了再上线。
     </h1>
     <p class="mt-5 max-w-2xl text-base text-ink/80 sm:text-lg">
-      Phase 1 占位页。Hero、套餐、流程将在 Phase 2 完成。
+      我在惠灵顿做五页网站,服务对象是本地小生意。每个站交付前,都会跑一遍我以前做测试工程师时用的自动化测试 —
+      客户遇到 bug 之前,我先发现。
     </p>
     <div class="mt-7 flex flex-wrap gap-3">
-      <Button href="/zh/packages" variant="primary">{t('cta.viewPackages')}</Button>
-      <Button href="/zh/contact" variant="secondary">{t('cta.start')}</Button>
+      <Button href="/zh/packages" variant="primary">查看套餐</Button>
+      <Button href="/zh/contact" variant="secondary">开始合作</Button>
     </div>
   </section>
 
   <section class="mx-auto max-w-[1100px] px-5 pb-20 sm:px-6">
     <Scorecard />
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-5 pb-20 sm:px-6">
+    <header class="mb-8 flex items-end justify-between gap-4">
+      <div>
+        <p class="font-mono text-xs uppercase tracking-wider text-pounamu">套餐</p>
+        <h2 class="mt-2 text-2xl font-semibold text-ink sm:text-3xl">三档大小,一个质量标准。</h2>
+      </div>
+      <a href="/zh/packages" class="hidden text-sm text-pounamu sm:inline">查看全部 →</a>
+    </header>
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        packages.map((p) => (
+          <PackageCard
+            name={p.name}
+            price={p.price}
+            blurb={p.blurb}
+            bullets={p.bullets}
+            ctaLabel="详细看看"
+            ctaHref="/zh/packages"
+            featured={p.featured}
+          />
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-5 pb-20 sm:px-6">
+    <header class="mb-8">
+      <p class="font-mono text-xs uppercase tracking-wider text-pounamu">流程</p>
+      <h2 class="mt-2 text-2xl font-semibold text-ink sm:text-3xl">四步流程,没有意外。</h2>
+    </header>
+    <ol class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        steps.map((s) => (
+          <li class="rounded-[4px] border border-line bg-paper p-5">
+            <p class="font-mono text-xs text-pounamu">{s.n}</p>
+            <h3 class="mt-2 text-lg font-semibold text-ink">{s.title}</h3>
+            <p class="mt-2 text-sm text-ink/80">{s.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-5 pb-24 sm:px-6">
+    <div class="rounded-[4px] border border-line bg-[var(--color-mono-bg)] p-8 sm:p-10">
+      <h2 class="text-2xl font-semibold text-ink sm:text-3xl">准备好了,就来聊。</h2>
+      <p class="mt-3 max-w-xl text-ink/80">
+        用两句话告诉我你做什么生意。我会在一个工作日内回复,带固定报价和交付日期。
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <Button href="/zh/contact" variant="primary">开始合作</Button>
+        <Button href="/zh/work" variant="secondary">看最近做的站</Button>
+      </div>
+    </div>
   </section>
 </BaseLayout>

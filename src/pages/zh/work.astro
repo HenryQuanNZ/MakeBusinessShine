@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import Button from '../../components/Button.astro';
+
+const cases = [
+  {
+    name: 'Aro Valley Plumbing',
+    industry: '水电工',
+    pkg: '入门',
+    blurb: '一页站,点击拨号、服务范围地图、夜间加急费率全部明明白白写在首屏。',
+    swatch: 'paper' as const,
+  },
+  {
+    name: 'Cuba Street Bao',
+    industry: '餐饮',
+    pkg: '标准',
+    blurb: '菜单、营业时间、外卖链接。3G 手机网络下也能一秒打开。',
+    swatch: 'mono' as const,
+  },
+  {
+    name: 'Tory & Nguyen Clinic',
+    industry: '医疗',
+    pkg: '双语',
+    blurb: '一家越南-华人 GP 诊所的中英双语站。在线预约 + 双语初诊表单。',
+    swatch: 'pounamu' as const,
+  },
+];
+---
+
+<BaseLayout
+  title="案例 — MakeBusinessShine"
+  description="惠灵顿本地小生意最近做过的网站:水电、餐饮、医疗,需要双语的就上双语。"
+>
+  <section class="mx-auto max-w-[1100px] px-5 pb-12 pt-16 sm:px-6 sm:pt-24">
+    <p class="font-mono text-xs uppercase tracking-widest text-pounamu">案例</p>
+    <h1 class="mt-4 max-w-3xl text-3xl font-bold tracking-tight text-ink sm:text-5xl">
+      最近做过的几个站。
+    </h1>
+    <p class="mt-5 max-w-2xl text-base text-ink/80 sm:text-lg">
+      真实生意、真实网站 — 每个 Lighthouse 移动端跑分都在 95 以上。
+      卡片标签是用的套餐,点进去看上线版本。
+    </p>
+    <p class="mt-3 max-w-2xl font-mono text-xs text-ink/60">
+      说明:下面是工作室开业初期的演示案例,真实客户案例上线后会替换掉。
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-5 pb-20 sm:px-6">
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        cases.map((c) => (
+          <WorkCard
+            name={c.name}
+            industry={c.industry}
+            pkg={c.pkg}
+            blurb={c.blurb}
+            swatch={c.swatch}
+          />
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-5 pb-24 sm:px-6">
+    <div class="rounded-[4px] border border-line bg-[var(--color-mono-bg)] p-8 sm:p-10">
+      <h2 class="text-2xl font-semibold text-ink sm:text-3xl">下一个案例,可能就是你的。</h2>
+      <p class="mt-3 max-w-xl text-ink/80">
+        我一个月只接三个项目,每个都能拿到全部注意力。本月排满了,我会在一天内告诉你。
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <Button href="/zh/contact" variant="primary">开始合作</Button>
+        <Button href="/zh/packages" variant="secondary">查看套餐</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
