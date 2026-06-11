@@ -1,0 +1,54 @@
+---
+interface Props {
+  name: string;
+  industry: string;
+  pkg: string;
+  blurb: string;
+  swatch?: 'paper' | 'mono' | 'ink' | 'pounamu';
+  href?: string;
+}
+
+const { name, industry, pkg, blurb, swatch = 'paper', href } = Astro.props;
+
+const swatchClasses: Record<NonNullable<Props['swatch']>, string> = {
+  paper: 'bg-paper border-line',
+  mono: 'bg-[var(--color-mono-bg)] border-line',
+  ink: 'bg-ink text-paper border-ink',
+  pounamu: 'bg-pounamu text-paper border-pounamu',
+};
+
+const Wrapper = href ? 'a' : 'article';
+---
+
+<Wrapper
+  {...href ? { href } : {}}
+  class:list={[
+    'group flex flex-col overflow-hidden rounded-[4px] border no-underline hover:no-underline',
+    swatchClasses[swatch],
+  ]}
+>
+  <div class="aspect-[16/10] border-b border-line/60 p-5 sm:p-6">
+    <div class="flex h-full flex-col justify-between">
+      <div class="flex items-center gap-2 opacity-70">
+        <span class="h-2 w-2 rounded-full bg-current"></span>
+        <span class="h-2 w-2 rounded-full bg-current opacity-60"></span>
+        <span class="h-2 w-2 rounded-full bg-current opacity-30"></span>
+      </div>
+      <div>
+        <p class="font-mono text-[10px] uppercase tracking-widest opacity-60">{industry}</p>
+        <p class="mt-1 text-xl font-semibold sm:text-2xl">{name}</p>
+      </div>
+      <div class="space-y-1.5">
+        <div class="h-1.5 w-3/4 rounded-full bg-current opacity-30"></div>
+        <div class="h-1.5 w-1/2 rounded-full bg-current opacity-20"></div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-paper p-5 text-ink sm:p-6">
+    <div class="mb-2 flex items-center justify-between gap-3">
+      <p class="font-mono text-xs uppercase tracking-wider text-pounamu">{pkg}</p>
+      <p class="font-mono text-xs text-ink/50">{industry}</p>
+    </div>
+    <p class="text-sm text-ink/80">{blurb}</p>
+  </div>
+</Wrapper>

@@ -2,9 +2,67 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Scorecard from '../components/Scorecard.astro';
 import Button from '../components/Button.astro';
-import { useTranslations } from '../i18n/ui';
+import PackageCard from '../components/PackageCard.astro';
 
-const t = useTranslations('en');
+const packages = [
+  {
+    name: 'Starter',
+    price: 'NZ$890',
+    blurb: 'A single, fast landing page. Good for one-person tradies who need a real online presence today.',
+    bullets: [
+      '1 page, mobile-first',
+      'Contact form + Google Maps',
+      'Delivered in 5 working days',
+      '1 round of revisions',
+    ],
+  },
+  {
+    name: 'Standard',
+    price: 'NZ$1,490',
+    blurb: 'Five pages: home, services, about, work, contact. The default choice for most local businesses.',
+    bullets: [
+      '5 pages, mobile-first',
+      'Contact form, SEO meta, sitemap',
+      'Delivered in 7 working days',
+      '2 rounds of revisions',
+    ],
+    featured: true,
+  },
+  {
+    name: 'Bilingual',
+    price: 'NZ$2,290',
+    blurb: 'Standard package, fully delivered in English and 中文 — written, not machine-translated.',
+    bullets: [
+      '5 pages × 2 languages = 10 pages',
+      'Native Chinese copy, not Google Translate',
+      'Delivered in 10 working days',
+      '2 rounds of revisions per language',
+    ],
+  },
+];
+
+const steps = [
+  {
+    n: '01',
+    title: 'Brief',
+    body: 'A 30-minute call, then a one-page brief you can sign off. No questionnaire bloat.',
+  },
+  {
+    n: '02',
+    title: 'Build',
+    body: 'I build on a staging URL you can watch update. Daily check-ins, not weekly silence.',
+  },
+  {
+    n: '03',
+    title: 'Test',
+    body: 'Automated end-to-end tests on every change. Real-device check before sign-off.',
+  },
+  {
+    n: '04',
+    title: 'Ship',
+    body: 'Live on your domain with SSL, analytics, and a 30-day post-launch fix window.',
+  },
+];
 ---
 
 <BaseLayout
@@ -12,20 +70,78 @@ const t = useTranslations('en');
   description="Wellington-based bilingual web studio. Five-page websites for local businesses, tested end-to-end, delivered in seven working days."
 >
   <section class="mx-auto max-w-[1100px] px-5 pb-12 pt-16 sm:px-6 sm:pt-24">
-    <p class="font-mono text-xs uppercase tracking-widest text-pounamu">{t('site.tagline')}</p>
-    <h1 class="mt-4 text-3xl font-bold tracking-tight text-ink sm:text-5xl">
+    <p class="font-mono text-xs uppercase tracking-widest text-pounamu">Tested. Bilingual. Affordable.</p>
+    <h1 class="mt-4 max-w-3xl text-3xl font-bold tracking-tight text-ink sm:text-5xl">
       Websites for local businesses — tested, not guessed.
     </h1>
     <p class="mt-5 max-w-2xl text-base text-ink/80 sm:text-lg">
-      Phase 1 placeholder. Hero, packages, and process land in Phase 2.
+      I build five-page websites for Wellington small businesses. Every site ships with the same automated tests
+      I used as a QA engineer — so you find out things are broken before your customers do.
     </p>
     <div class="mt-7 flex flex-wrap gap-3">
-      <Button href="/packages" variant="primary">{t('cta.viewPackages')}</Button>
-      <Button href="/contact" variant="secondary">{t('cta.start')}</Button>
+      <Button href="/packages" variant="primary">See packages</Button>
+      <Button href="/contact" variant="secondary">Start a project</Button>
     </div>
   </section>
 
   <section class="mx-auto max-w-[1100px] px-5 pb-20 sm:px-6">
     <Scorecard />
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-5 pb-20 sm:px-6">
+    <header class="mb-8 flex items-end justify-between gap-4">
+      <div>
+        <p class="font-mono text-xs uppercase tracking-wider text-pounamu">Packages</p>
+        <h2 class="mt-2 text-2xl font-semibold text-ink sm:text-3xl">Three sizes. One quality bar.</h2>
+      </div>
+      <a href="/packages" class="hidden text-sm text-pounamu sm:inline">All details →</a>
+    </header>
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        packages.map((p) => (
+          <PackageCard
+            name={p.name}
+            price={p.price}
+            blurb={p.blurb}
+            bullets={p.bullets}
+            ctaLabel="Details"
+            ctaHref="/packages"
+            featured={p.featured}
+          />
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-5 pb-20 sm:px-6">
+    <header class="mb-8">
+      <p class="font-mono text-xs uppercase tracking-wider text-pounamu">Process</p>
+      <h2 class="mt-2 text-2xl font-semibold text-ink sm:text-3xl">Four steps. No surprises.</h2>
+    </header>
+    <ol class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        steps.map((s) => (
+          <li class="rounded-[4px] border border-line bg-paper p-5">
+            <p class="font-mono text-xs text-pounamu">{s.n}</p>
+            <h3 class="mt-2 text-lg font-semibold text-ink">{s.title}</h3>
+            <p class="mt-2 text-sm text-ink/80">{s.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-5 pb-24 sm:px-6">
+    <div class="rounded-[4px] border border-line bg-[var(--color-mono-bg)] p-8 sm:p-10">
+      <h2 class="text-2xl font-semibold text-ink sm:text-3xl">Ready when you are.</h2>
+      <p class="mt-3 max-w-xl text-ink/80">
+        Tell me about your business in two sentences. I'll reply within one working day with a fixed quote
+        and a delivery date.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <Button href="/contact" variant="primary">Start a project</Button>
+        <Button href="/work" variant="secondary">See recent work</Button>
+      </div>
+    </div>
   </section>
 </BaseLayout>

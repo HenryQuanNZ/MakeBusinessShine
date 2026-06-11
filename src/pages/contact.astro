@@ -1,0 +1,167 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+
+// TODO Phase 4: replace with the real Formspree endpoint.
+const FORM_ACTION = 'https://formspree.io/f/REPLACE_ME';
+
+const timeline = [
+  {
+    when: 'Day 0',
+    title: 'You send this form',
+    body: "I reply within one working day with a fixed quote, a delivery date, and any clarifying questions.",
+  },
+  {
+    when: 'Day 1',
+    title: 'Deposit + brief',
+    body: '50% deposit locks the slot. We have a 30-minute call and I write a one-page brief you sign off.',
+  },
+  {
+    when: 'Day 2–5',
+    title: 'Build on staging',
+    body: "You watch a staging URL update daily. I send a short note every evening so you're never wondering.",
+  },
+  {
+    when: 'Day 6',
+    title: 'Revision round',
+    body: 'You send one consolidated list of changes. I work through them and send back for review.',
+  },
+  {
+    when: 'Day 7',
+    title: 'Ship',
+    body: 'Final 50% paid, site goes live on your domain with SSL, analytics, and a 30-day fix window.',
+  },
+];
+---
+
+<BaseLayout
+  title="Contact — MakeBusinessShine"
+  description="Tell me about your business in two sentences. I reply within one working day with a fixed quote and a delivery date."
+>
+  <section class="mx-auto max-w-[1100px] px-5 pb-12 pt-16 sm:px-6 sm:pt-24">
+    <p class="font-mono text-xs uppercase tracking-widest text-pounamu">Contact</p>
+    <h1 class="mt-4 max-w-3xl text-3xl font-bold tracking-tight text-ink sm:text-5xl">
+      Two sentences. One working day.
+    </h1>
+    <p class="mt-5 max-w-2xl text-base text-ink/80 sm:text-lg">
+      Tell me about your business and what you need. I reply within one working day with a fixed quote
+      and a delivery date — or an honest "I'm not the right person" if I'm not.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-5 pb-20 sm:px-6">
+    <div class="grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-12">
+      <form
+        action={FORM_ACTION}
+        method="POST"
+        class="space-y-5 rounded-[4px] border border-line bg-paper p-6 sm:p-7"
+      >
+        <div>
+          <label for="name" class="block text-sm font-medium text-ink">Your name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            autocomplete="name"
+            class="mt-1.5 w-full rounded-[4px] border border-line bg-paper px-3 py-2.5 text-ink outline-none focus:border-pounamu"
+          />
+        </div>
+
+        <div>
+          <label for="business" class="block text-sm font-medium text-ink">Business name</label>
+          <input
+            type="text"
+            id="business"
+            name="business"
+            required
+            autocomplete="organization"
+            class="mt-1.5 w-full rounded-[4px] border border-line bg-paper px-3 py-2.5 text-ink outline-none focus:border-pounamu"
+          />
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-ink">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            autocomplete="email"
+            class="mt-1.5 w-full rounded-[4px] border border-line bg-paper px-3 py-2.5 text-ink outline-none focus:border-pounamu"
+          />
+        </div>
+
+        <div>
+          <label for="budget" class="block text-sm font-medium text-ink">Budget</label>
+          <select
+            id="budget"
+            name="budget"
+            required
+            class="mt-1.5 w-full rounded-[4px] border border-line bg-paper px-3 py-2.5 text-ink outline-none focus:border-pounamu"
+          >
+            <option value="">Pick a range</option>
+            <option value="starter">Starter — around NZ$890</option>
+            <option value="standard">Standard — around NZ$1,490</option>
+            <option value="bilingual">Bilingual — around NZ$2,290</option>
+            <option value="unsure">Not sure yet — talk it through</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="message" class="block text-sm font-medium text-ink">What do you need?</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            required
+            class="mt-1.5 w-full rounded-[4px] border border-line bg-paper px-3 py-2.5 text-ink outline-none focus:border-pounamu"
+            placeholder="Two sentences are enough. What do you do, and what's missing?"
+          ></textarea>
+        </div>
+
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+        <Button type="submit" variant="primary">Send</Button>
+        <p class="font-mono text-xs text-ink/60">
+          Your details go to my inbox only. No newsletter, no tracking pixels.
+        </p>
+      </form>
+
+      <aside>
+        <header class="mb-5">
+          <p class="font-mono text-xs uppercase tracking-wider text-pounamu">Timeline</p>
+          <h2 class="mt-2 text-xl font-semibold text-ink sm:text-2xl">From form to live site.</h2>
+        </header>
+        <ol class="space-y-4">
+          {
+            timeline.map((step) => (
+              <li class="rounded-[4px] border border-line bg-paper p-4 sm:p-5">
+                <p class="font-mono text-xs uppercase tracking-wider text-pounamu">{step.when}</p>
+                <p class="mt-1.5 font-semibold text-ink">{step.title}</p>
+                <p class="mt-1.5 text-sm text-ink/80">{step.body}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </aside>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-5 pb-24 sm:px-6">
+    <div class="rounded-[4px] border border-line bg-[var(--color-mono-bg)] p-6 sm:p-8">
+      <p class="font-mono text-xs uppercase tracking-wider text-pounamu">Direct</p>
+      <h2 class="mt-2 text-xl font-semibold text-ink sm:text-2xl">Prefer email or chat?</h2>
+      <ul class="mt-4 space-y-2 font-mono text-sm">
+        <li>
+          <span class="text-ink/60">Email&nbsp;&nbsp;</span>
+          <a href="mailto:hello@makebusinessshine.co.nz" class="text-pounamu">hello@makebusinessshine.co.nz</a>
+        </li>
+        <li>
+          <span class="text-ink/60">GitHub&nbsp;</span>
+          <a href="https://github.com/HenryQuanNZ" class="text-pounamu" rel="noopener">HenryQuanNZ</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

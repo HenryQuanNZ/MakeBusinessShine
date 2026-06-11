@@ -1,0 +1,163 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PackageCard from '../components/PackageCard.astro';
+import Button from '../components/Button.astro';
+
+const packages = [
+  {
+    name: 'Starter',
+    price: 'NZ$890',
+    blurb: 'One landing page that loads fast and converts. For sole traders who need a real online presence today.',
+    bullets: [
+      '1 page, mobile-first',
+      'Contact form to your email',
+      'Google Maps + opening hours',
+      'Domain + SSL setup',
+      'Delivered in 5 working days',
+      '1 round of revisions',
+    ],
+  },
+  {
+    name: 'Standard',
+    price: 'NZ$1,490',
+    blurb: 'Five pages — home, services, about, work, contact. The default for most local businesses.',
+    bullets: [
+      '5 pages, mobile-first',
+      'Contact form, SEO meta, sitemap',
+      'Open Graph image for social shares',
+      'Google Business Profile integration',
+      'Delivered in 7 working days',
+      '2 rounds of revisions',
+    ],
+    featured: true,
+  },
+  {
+    name: 'Bilingual',
+    price: 'NZ$2,290',
+    blurb: 'The Standard package, fully delivered in English and 中文 — written, not machine-translated.',
+    bullets: [
+      '5 pages × 2 languages = 10 pages',
+      'Native Chinese copy (I write it myself)',
+      'Language switch that remembers the page',
+      'hreflang + SEO for both markets',
+      'Delivered in 10 working days',
+      '2 rounds of revisions per language',
+    ],
+  },
+];
+
+const addons = [
+  { name: 'Extra page', price: 'NZ$190' },
+  { name: 'Booking form (Calendly / TidyCal)', price: 'NZ$150' },
+  { name: 'Newsletter signup (Buttondown / Mailchimp)', price: 'NZ$150' },
+  { name: 'Photo retouching, per batch of 10', price: 'NZ$120' },
+  { name: 'Copywriting, per page', price: 'NZ$180' },
+  { name: 'Extra revision round', price: 'NZ$120' },
+  { name: 'Logo refresh (not full brand)', price: 'NZ$290' },
+];
+
+const faqs = [
+  {
+    q: 'How much deposit do you take?',
+    a: '50% to lock in the build slot. The other 50% is due before the site goes live on your domain. Bank transfer or Stripe — your call.',
+  },
+  {
+    q: 'What counts as one "round of revisions"?',
+    a: 'You send me one consolidated list of changes. I work through them, then send the site back for review. Trickle-feeding changes one at a time eats time fast, so we batch.',
+  },
+  {
+    q: 'What if I want changes after launch?',
+    a: 'First 30 days post-launch: anything I broke is fixed free. After that, small tweaks are NZ$80/hour, or grab the Care Plan below for predictable monthly maintenance.',
+  },
+  {
+    q: 'Who owns the code and the domain?',
+    a: 'You do. The repo, the domain, and the hosting account are all in your name from day one. No vendor lock-in.',
+  },
+  {
+    q: 'Can I supply my own copy and photos?',
+    a: 'Yes — and it speeds delivery by a day or two. If you don\'t have copy, I can write it (see add-ons).',
+  },
+];
+---
+
+<BaseLayout
+  title="Packages & pricing — MakeBusinessShine"
+  description="Three website packages for Wellington small businesses, plus a $39/month Care Plan and à la carte add-ons. Fixed prices, fixed timelines."
+>
+  <section class="mx-auto max-w-[1100px] px-5 pb-12 pt-16 sm:px-6 sm:pt-24">
+    <p class="font-mono text-xs uppercase tracking-widest text-pounamu">Packages</p>
+    <h1 class="mt-4 text-3xl font-bold tracking-tight text-ink sm:text-5xl">
+      Fixed price. Fixed timeline. No surprise invoices.
+    </h1>
+    <p class="mt-5 max-w-2xl text-base text-ink/80 sm:text-lg">
+      Pick the size that matches your business. Every package includes the same automated tests,
+      the same hosting setup, and the same 30-day post-launch fix window.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-5 pb-20 sm:px-6">
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        packages.map((p) => (
+          <PackageCard
+            name={p.name}
+            price={p.price}
+            blurb={p.blurb}
+            bullets={p.bullets}
+            ctaLabel="Start a project"
+            ctaHref="/contact"
+            featured={p.featured}
+          />
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-5 pb-20 sm:px-6">
+    <div class="grid gap-6 rounded-[4px] border border-pounamu bg-paper p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center">
+      <div>
+        <p class="font-mono text-xs uppercase tracking-wider text-pounamu">Care Plan</p>
+        <h2 class="mt-2 text-2xl font-semibold text-ink sm:text-3xl">NZ$39/month — keep it shining.</h2>
+        <p class="mt-3 max-w-2xl text-ink/80">
+          Hosting, SSL, weekly automated test runs, monthly Lighthouse report, and up to 30 minutes of
+          small edits per month (price changes, new staff photo, opening hours). Cancel any time.
+        </p>
+      </div>
+      <Button href="/contact" variant="primary">Add Care Plan</Button>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-5 pb-20 sm:px-6">
+    <header class="mb-6">
+      <p class="font-mono text-xs uppercase tracking-wider text-pounamu">Add-ons</p>
+      <h2 class="mt-2 text-2xl font-semibold text-ink sm:text-3xl">À la carte — only pay for what you need.</h2>
+    </header>
+    <ul role="list" class="divide-y divide-line rounded-[4px] border border-line bg-paper">
+      {
+        addons.map((a) => (
+          <li class="flex items-baseline justify-between gap-4 px-5 py-4">
+            <span class="text-ink">{a.name}</span>
+            <span class="font-mono text-sm text-pounamu">{a.price}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-5 pb-24 sm:px-6">
+    <header class="mb-6">
+      <p class="font-mono text-xs uppercase tracking-wider text-pounamu">FAQ</p>
+      <h2 class="mt-2 text-2xl font-semibold text-ink sm:text-3xl">Things people usually ask.</h2>
+    </header>
+    <dl class="divide-y divide-line rounded-[4px] border border-line bg-paper">
+      {
+        faqs.map((f) => (
+          <div class="px-5 py-5 sm:px-6 sm:py-6">
+            <dt class="font-semibold text-ink">{f.q}</dt>
+            <dd class="mt-2 text-ink/80">{f.a}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+</BaseLayout>
