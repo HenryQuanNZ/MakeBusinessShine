@@ -73,9 +73,10 @@ export function pathWithoutLocale(pathname: string): string {
 
 export function localizedPath(path: string, lang: Lang): string {
   const clean = path.startsWith('/') ? path : `/${path}`;
-  if (lang === 'en') return clean;
-  if (clean === '/') return '/zh/';
-  return `/zh${clean}`;
+  const withSlash = clean.endsWith('/') ? clean : `${clean}/`;
+  if (lang === 'en') return withSlash;
+  if (withSlash === '/') return '/zh/';
+  return `/zh${withSlash}`;
 }
 
 export function switchLanguageUrl(pathname: string, target: Lang): string {

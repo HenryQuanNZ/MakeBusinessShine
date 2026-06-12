@@ -9,7 +9,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
@@ -19,5 +22,8 @@
     "@tailwindcss/vite": "^4.3.0",
     "astro": "^6.4.6",
     "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.60.0"
   }
 }

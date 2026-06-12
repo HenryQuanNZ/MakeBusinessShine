@@ -1,43 +1,89 @@
-# Astro Starter Kit: Minimal
+# MakeBusinessShine
 
-```sh
-npm create astro@latest -- --template minimal
+[![CI](https://github.com/HenryQuanNZ/MakeBusinessShine/actions/workflows/ci.yml/badge.svg)](https://github.com/HenryQuanNZ/MakeBusinessShine/actions/workflows/ci.yml)
+
+A bilingual website for a Wellington-based small-business web studio. This repository
+is two things at once:
+
+1. **The studio's public website** — five pages in English plus five in 中文,
+   marketing the studio's three packages and Care Plan.
+2. **A working demo of how I build sites** — the same testing rigour I sell to
+   clients is wired into this repo. Push a commit, CI runs Playwright across
+   every page in two viewports, and a green badge above proves it.
+
+## Stack
+
+| Concern | Choice |
+|---|---|
+| Framework | [Astro 6](https://astro.build) (static output) |
+| Styling | [Tailwind CSS 4](https://tailwindcss.com) with `@theme` design tokens |
+| i18n | Astro built-in i18n routing (`en` default, `zh` prefixed) |
+| Forms | [Formspree](https://formspree.io) (free tier) |
+| Tests | [Playwright](https://playwright.dev) — desktop + mobile (380px) |
+| CI | GitHub Actions (build + E2E on every push) |
+| Hosting | [Cloudflare Pages](https://pages.cloudflare.com) (free tier) |
+| Fonts | Self-hosted IBM Plex Sans / Mono + Noto Sans SC via `@fontsource` |
+
+## Structure
+
+```
+src/
+├── components/   # Header, Footer, Button, PackageCard, Scorecard, WorkCard
+├── i18n/         # ui.ts dictionary + getLangFromUrl / localizedPath helpers
+├── layouts/      # BaseLayout (SEO meta, hreflang, OG, skip-link)
+├── pages/        # / /packages /work /about /contact
+│   └── zh/       # 中文 versions
+└── styles/
+    └── global.css  # Tailwind @theme tokens + font imports
+public/
+├── favicon.svg   # Brand mark
+├── og.svg        # Open Graph card (1200×630)
+└── robots.txt
+tests/            # Playwright specs
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Commands
 
-## 🚀 Project Structure
+| Command | Action |
+|---|---|
+| `npm install` | Install dependencies |
+| `npm run dev` | Dev server at `localhost:4321` |
+| `npm run build` | Static build to `./dist/` |
+| `npm run preview` | Serve the built site locally |
+| `npm test` | Run Playwright E2E across desktop + 380px mobile |
+| `npm run test:ui` | Open Playwright UI mode |
 
-Inside of your Astro project, you'll see the following folders and files:
+## What CI verifies on every push
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+- Every page (10 routes × 2 viewports) returns 200 and renders the right title
+- `<html lang>` switches between `en-NZ` and `zh-CN` correctly
+- Language toggle round-trips (`/packages` ↔ `/zh/packages`) on every page
+- Each page has a canonical URL and a non-trivial meta description
+- No horizontal scroll at 380px viewport on any page
+- Top-nav links land on the right URL
+- Contact form (EN + ZH): all fields work, submission POSTs the expected
+  payload to Formspree (network stubbed in tests)
+- Honeypot field is present and hidden
+
+## Design tokens
+
+Defined once in `src/styles/global.css` via Tailwind 4's `@theme` directive:
+
+```
+--color-ink:     #1C2127   /* near-black cool grey */
+--color-paper:   #F7F8F6   /* cool off-white */
+--color-pounamu: #0E6B5C   /* NZ greenstone, brand colour */
+--color-pass:    #2BA84A   /* test-pass green, scorecard only */
+--color-line:    #D8DCD9   /* borders & dividers */
+--color-mono-bg: #EDF0EE   /* code / report-card background */
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Deploy
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Cloudflare Pages picks this repo up automatically. Build command: `npm run build`,
+output dir: `dist/`. The `site` URL in `astro.config.mjs` should match the
+production domain so canonical URLs, sitemap, and OG image absolutes resolve.
 
-Any static assets, like images, can be placed in the `public/` directory.
+## License
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Code: MIT. Studio name and copy: all rights reserved.
