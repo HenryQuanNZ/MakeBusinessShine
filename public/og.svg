@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" font-family="ui-sans-serif, system-ui, sans-serif">
+  <rect width="1200" height="630" fill="#F7F8F6"/>
+
+  <!-- Brand row -->
+  <g transform="translate(72,72)">
+    <rect width="48" height="48" rx="6" fill="#0E6B5C"/>
+    <path d="M11 35V13h4l5 12 5-12h4v22h-4V21l-4 11h-2l-4-11v14h-4Z" fill="#F7F8F6"/>
+    <text x="68" y="33" font-size="22" font-weight="600" fill="#1C2127">MakeBusinessShine</text>
+  </g>
+
+  <!-- Tagline -->
+  <text x="72" y="200" font-family="ui-monospace, SFMono-Regular, monospace" font-size="20" fill="#0E6B5C" letter-spacing="2">TESTED. BILINGUAL. AFFORDABLE.</text>
+
+  <!-- Headline -->
+  <text x="72" y="280" font-size="64" font-weight="700" fill="#1C2127">Websites for local businesses —</text>
+  <text x="72" y="356" font-size="64" font-weight="700" fill="#1C2127">tested, not guessed.</text>
+
+  <!-- Scorecard card -->
+  <g transform="translate(72,420)">
+    <rect width="1056" height="138" rx="6" fill="#EDF0EE" stroke="#D8DCD9"/>
+    <g font-family="ui-monospace, SFMono-Regular, monospace" font-size="22" fill="#1C2127">
+      <text x="32" y="46"><tspan fill="#2BA84A">✓</tspan> Performance      100   <tspan fill="#2BA84A">✓</tspan> Accessibility    100   <tspan fill="#2BA84A">✓</tspan> Best Practices   100   <tspan fill="#2BA84A">✓</tspan> SEO   100</text>
+      <text x="32" y="88"><tspan fill="#2BA84A">✓</tspan> Mobile           PASS  <tspan fill="#2BA84A">✓</tspan> Cross-browser    PASS  <tspan fill="#2BA84A">✓</tspan> Forms            PASS</text>
+      <text x="32" y="122" fill="#1C2127" opacity="0.7" font-size="18">Every site I deliver ships with this report.</text>
+    </g>
+  </g>
+</svg>
