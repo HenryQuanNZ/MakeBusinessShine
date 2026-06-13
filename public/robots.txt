@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://makebusinessshine.co.nz/sitemap-index.xml
+Sitemap: https://makebusinessshine.com/sitemap-index.xml

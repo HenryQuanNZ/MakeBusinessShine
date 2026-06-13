@@ -100,7 +100,7 @@ Defined once in `src/styles/global.css` via Tailwind 4's `@theme` directive:
 2. In the Pages project: **Custom domains → Set up a custom domain**. Cloudflare
    issues a free SSL cert and 301-redirects `www` automatically.
 3. Update `site` in `astro.config.mjs` if the production hostname differs from
-   the current placeholder `https://makebusinessshine.co.nz`. Rebuild after.
+   the current `https://makebusinessshine.com`. Rebuild after.
 
 ### 3. Cloudflare Web Analytics (no cookies, no slowdown)
 
