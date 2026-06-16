@@ -21,7 +21,7 @@ export const ui = {
     'cta.viewPackages': 'See packages',
 
     'lang.switchTo': '中文',
-    'lang.switchAria': 'Switch language to Chinese',
+    'lang.switchExtra': ' — switch to Chinese',
 
     'footer.tagline': 'This site scores 100/100/100/100 on Lighthouse — yours can too.',
     'footer.contact': 'Contact',
@@ -42,7 +42,7 @@ export const ui = {
     'cta.viewPackages': '查看套餐',
 
     'lang.switchTo': 'EN',
-    'lang.switchAria': '切换到英文',
+    'lang.switchExtra': ' — 切换到英文',
 
     'footer.tagline': '本站 Lighthouse 四项满分 — 你的站也能做到。',
     'footer.contact': '联系',

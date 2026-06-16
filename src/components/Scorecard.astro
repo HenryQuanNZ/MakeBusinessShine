@@ -50,7 +50,7 @@ const labelWidth = Math.max(...rows.map((r) => r.label.length));
   aria-label={title}
   class="scorecard rounded-[4px] border border-line bg-[var(--color-mono-bg)] p-5 sm:p-6 font-mono text-[13px] sm:text-sm leading-relaxed text-ink"
 >
-  <p class="mb-3 text-xs uppercase tracking-wider text-ink/60">{title}</p>
+  <p class="mb-3 text-xs uppercase tracking-wider text-ink/70">{title}</p>
 
   <ul role="list" class="space-y-1">
     {
@@ -59,7 +59,7 @@ const labelWidth = Math.max(...rows.map((r) => r.label.length));
           <span aria-hidden="true" class="text-[var(--color-pass)]">✓</span>
           <span class="inline-block" style={`min-width: ${labelWidth}ch`}>{row.label}</span>
           <span class="font-medium">{row.value}</span>
-          {row.note && <span class="text-ink/60">({row.note})</span>}
+          {row.note && <span class="text-ink/70">({row.note})</span>}
         </li>
       ))
     }

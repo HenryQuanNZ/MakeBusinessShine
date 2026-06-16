@@ -9,6 +9,9 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://makebusinessshine.com',
   output: 'static',
+  build: {
+    inlineStylesheets: 'always',
+  },
 
   i18n: {
     defaultLocale: 'en',

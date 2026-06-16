@@ -55,10 +55,10 @@ const altHref = switchLanguageUrl(Astro.url.pathname, altLang);
       <a
         href={altHref}
         class="ml-1 rounded-[4px] border border-line px-2 py-1 font-mono text-xs text-ink no-underline hover:border-pounamu hover:text-pounamu hover:no-underline"
-        aria-label={t('lang.switchAria')}
         lang={altLang}
       >
-        {t('lang.switchTo')}
+        <span aria-hidden="false">{t('lang.switchTo')}</span>
+        <span class="sr-only">{t('lang.switchExtra')}</span>
       </a>
     </nav>
   </div>
