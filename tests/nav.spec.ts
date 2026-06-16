@@ -32,8 +32,3 @@ for (const link of zhNav) {
   });
 }
 
-test('footer GitHub link points to the repo', async ({ page }) => {
-  await page.goto('/');
-  const link = page.getByRole('contentinfo').getByRole('link', { name: /GitHub/i });
-  await expect(link).toHaveAttribute('href', 'https://github.com/HenryQuanNZ/MakeBusinessShine');
-});

@@ -25,7 +25,6 @@ export const ui = {
 
     'footer.tagline': 'This site scores 100/100/100/100 on Lighthouse — yours can too.',
     'footer.contact': 'Contact',
-    'footer.github': 'GitHub',
     'footer.rights': '© {year} MakeBusinessShine — Wellington, NZ',
   },
   zh: {
@@ -46,7 +45,6 @@ export const ui = {
 
     'footer.tagline': '本站 Lighthouse 四项满分 — 你的站也能做到。',
     'footer.contact': '联系',
-    'footer.github': 'GitHub',
     'footer.rights': '© {year} MakeBusinessShine — Wellington, NZ',
   },
 } as const;
