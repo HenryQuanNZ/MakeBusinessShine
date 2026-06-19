@@ -10,6 +10,11 @@ interface Props {
 
 const { name, industry, pkg, blurb, swatch = 'paper', href } = Astro.props;
 
+const isExternal = !!href && /^https?:\/\//.test(href);
+const linkAttrs = href
+  ? { href, ...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {}) }
+  : {};
+
 const swatchClasses: Record<NonNullable<Props['swatch']>, string> = {
   paper: 'bg-paper border-line',
   mono: 'bg-[var(--color-mono-bg)] border-line',
@@ -21,7 +26,7 @@ const Wrapper = href ? 'a' : 'article';
 ---
 
 <Wrapper
-  {...href ? { href } : {}}
+  {...linkAttrs}
   class:list={[
     'group flex flex-col overflow-hidden rounded-[4px] border no-underline hover:no-underline',
     swatchClasses[swatch],

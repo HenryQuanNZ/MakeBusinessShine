@@ -3,27 +3,37 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import WorkCard from '../components/WorkCard.astro';
 import Button from '../components/Button.astro';
 
-const cases = [
+type Case = {
+  name: string;
+  industry: string;
+  pkg: string;
+  blurb: string;
+  swatch: 'paper' | 'mono' | 'ink' | 'pounamu';
+  href?: string;
+};
+
+const cases: Case[] = [
   {
     name: 'Aro Valley Plumbing',
     industry: 'Trades',
     pkg: 'Starter',
     blurb: 'One-page site with click-to-call, service area map, and after-hours rate clearly above the fold.',
-    swatch: 'paper' as const,
+    swatch: 'paper',
+    href: 'https://henryquannz.github.io/aro-valley-plumbing/',
   },
   {
     name: 'Cuba Street Bao',
     industry: 'Food & beverage',
     pkg: 'Standard',
     blurb: 'Menu, opening hours, and order-ahead link. Loads in under a second on a 3G phone connection.',
-    swatch: 'mono' as const,
+    swatch: 'mono',
   },
   {
     name: 'Tory & Nguyen Clinic',
     industry: 'Healthcare',
     pkg: 'Bilingual',
     blurb: 'English + 中文 site for a Vietnamese-Chinese GP practice. Online booking and bilingual intake form.',
-    swatch: 'pounamu' as const,
+    swatch: 'pounamu',
   },
 ];
 ---
@@ -56,6 +66,7 @@ const cases = [
             pkg={c.pkg}
             blurb={c.blurb}
             swatch={c.swatch}
+            href={c.href}
           />
         ))
       }
