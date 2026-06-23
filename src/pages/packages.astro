@@ -5,6 +5,7 @@ import Button from '../components/Button.astro';
 
 const packages = [
   {
+    slug: 'starter',
     name: 'Starter',
     price: 'NZ$399',
     blurb: 'One landing page that loads fast and gets you found. For sole traders who need a real online presence today.',
@@ -18,6 +19,7 @@ const packages = [
     ],
   },
   {
+    slug: 'standard',
     name: 'Standard',
     price: 'NZ$699',
     blurb: 'Five pages. Everything a local business needs. Home, services, about, gallery, contact — done properly.',
@@ -32,6 +34,7 @@ const packages = [
     featured: true,
   },
   {
+    slug: 'bilingual',
     name: 'Bilingual',
     price: 'NZ$1,099',
     blurb: 'English + 中文 — written by a native speaker, not Google Translate. Reach both markets and stand out from every competitor who only has one.',
@@ -104,7 +107,7 @@ const faqs = [
             blurb={p.blurb}
             bullets={p.bullets}
             ctaLabel="Start a project"
-            ctaHref="/contact"
+            ctaHref={`/contact?package=${p.slug}`}
             featured={p.featured}
           />
         ))

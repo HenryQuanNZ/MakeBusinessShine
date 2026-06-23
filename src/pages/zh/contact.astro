@@ -4,33 +4,32 @@ import Button from '../../components/Button.astro';
 
 const FORM_ACTION = 'https://formspree.io/f/mojzklan';
 
-const timeline = [
-  {
-    when: '第 0 天',
-    title: '你提交这份表单',
-    body: '我会在一个工作日内回复,带着固定报价、交付日期,以及如果有什么不清楚的地方,我也一起问。',
-  },
-  {
-    when: '第 1 天',
-    title: '定金 + brief',
-    body: '50% 定金锁住档期。我们 30 分钟电话过一遍,然后我整理成一页 brief 让你签字。',
-  },
-  {
-    when: '第 2–5 天',
-    title: '在 staging 上开发',
-    body: '你能看到 staging URL 每天更新。每天傍晚我会发一条短消息告诉你今天做了什么,不用你猜进度。',
-  },
-  {
-    when: '第 6 天',
-    title: '修改轮',
-    body: '你把修改意见一次性发给我,我做完再发回去给你看。',
-  },
-  {
-    when: '第 7 天',
-    title: '上线',
-    body: '尾款 50% 付清,网站上你的域名,带 SSL、分析、以及上线后 30 天免费修补窗口。',
-  },
-];
+const timelines = {
+  starter: [
+    { when: '第 0 天', title: '你提交这份表单', body: '我会在一个工作日内回复,带着固定报价、交付日期,以及如果有什么不清楚的地方,我也一起问。' },
+    { when: '第 1 天', title: '定金 + brief', body: '50% 定金锁住档期。简短通个电话,我整理成一页 brief 让你签字。' },
+    { when: '第 2–3 天', title: '在 staging 上开发', body: '你的单页网站在 staging URL 上成形,每天傍晚我发一条短消息告诉你进度。' },
+    { when: '第 4 天', title: '修改轮', body: '你把修改意见一次性发给我,我做完再发回去给你看。' },
+    { when: '第 5 天', title: '上线', body: '尾款 50% 付清,网站上你的域名,带 SSL、分析、以及上线后 30 天免费修补窗口。' },
+  ],
+  standard: [
+    { when: '第 0 天', title: '你提交这份表单', body: '我会在一个工作日内回复,带着固定报价、交付日期,以及如果有什么不清楚的地方,我也一起问。' },
+    { when: '第 1 天', title: '定金 + brief', body: '50% 定金锁住档期。我们 30 分钟电话过一遍,然后我整理成一页 brief 让你签字。' },
+    { when: '第 2–5 天', title: '在 staging 上开发', body: '你能看到 staging URL 每天更新。每天傍晚我会发一条短消息告诉你今天做了什么,不用你猜进度。' },
+    { when: '第 6 天', title: '修改轮', body: '你把修改意见一次性发给我,我做完再发回去给你看。' },
+    { when: '第 7 天', title: '上线', body: '尾款 50% 付清,网站上你的域名,带 SSL、分析、以及上线后 30 天免费修补窗口。' },
+  ],
+  bilingual: [
+    { when: '第 0 天', title: '你提交这份表单', body: '我会在一个工作日内回复,带着固定报价、交付日期,以及如果有什么不清楚的地方,我也一起问。' },
+    { when: '第 1 天', title: '定金 + brief', body: '50% 定金锁住档期。我们 30 分钟电话过一遍,然后我整理成一页 brief 让你签字。' },
+    { when: '第 2–6 天', title: '中英双语开发', body: '五个页面在 staging 上同步做中英两版 —— 中文我亲手写,不用机器翻译。' },
+    { when: '第 7 天', title: '中文文案校对', body: '我们一起过一遍中文,确保读起来像母语者写的,而不是翻译腔。' },
+    { when: '第 8–9 天', title: '修改轮', body: '每种语言各一份修改清单,我两版一起改,再发回给你看。' },
+    { when: '第 10 天', title: '上线', body: '尾款 50% 付清,双语站上线,带 hreflang、SSL、分析、以及上线后 30 天免费修补窗口。' },
+  ],
+};
+
+const defaultPkg = 'standard';
 ---
 
 <BaseLayout
@@ -100,9 +99,9 @@ const timeline = [
             class="mt-1.5 w-full rounded-[4px] border border-line bg-paper px-3 py-2.5 text-ink outline-none focus:border-pounamu"
           >
             <option value="">选一个范围</option>
-            <option value="starter">入门 — NZ$690 左右</option>
-            <option value="standard">标准 — NZ$1,090 左右</option>
-            <option value="bilingual">双语 — NZ$1,790 左右</option>
+            <option value="starter">入门 — NZ$399 左右</option>
+            <option value="standard">标准 — NZ$699 左右</option>
+            <option value="bilingual">双语 — NZ$1,099 左右</option>
             <option value="unsure">还没定 — 可以聊聊</option>
           </select>
         </div>
@@ -130,19 +129,21 @@ const timeline = [
       <aside>
         <header class="mb-5">
           <p class="font-mono text-xs uppercase tracking-wider text-pounamu">时间线</p>
-          <h2 class="mt-2 text-xl font-semibold text-ink sm:text-2xl">从表单到上线。</h2>
+          <h2 data-timeline-heading class="mt-2 text-xl font-semibold text-ink sm:text-2xl">从表单到上线。</h2>
         </header>
-        <ol class="space-y-4">
-          {
-            timeline.map((step) => (
-              <li class="rounded-[4px] border border-line bg-paper p-4 sm:p-5">
-                <p class="font-mono text-xs uppercase tracking-wider text-pounamu">{step.when}</p>
-                <p class="mt-1.5 font-semibold text-ink">{step.title}</p>
-                <p class="mt-1.5 text-sm text-ink/80">{step.body}</p>
-              </li>
-            ))
-          }
-        </ol>
+        {
+          Object.entries(timelines).map(([slug, steps]) => (
+            <ol class="space-y-4" data-pkg-timeline={slug} hidden={slug !== defaultPkg}>
+              {steps.map((step) => (
+                <li class="rounded-[4px] border border-line bg-paper p-4 sm:p-5">
+                  <p class="font-mono text-xs uppercase tracking-wider text-pounamu">{step.when}</p>
+                  <p class="mt-1.5 font-semibold text-ink">{step.title}</p>
+                  <p class="mt-1.5 text-sm text-ink/80">{step.body}</p>
+                </li>
+              ))}
+            </ol>
+          ))
+        }
       </aside>
     </div>
   </section>
@@ -159,4 +160,19 @@ const timeline = [
       </ul>
     </div>
   </section>
+
+  <script is:inline>
+    (function () {
+      const days = { starter: 5, standard: 7, bilingual: 10 };
+      const pkg = new URLSearchParams(location.search).get('package');
+      if (!(pkg in days)) return;
+      document.querySelectorAll('[data-pkg-timeline]').forEach((el) => {
+        el.hidden = el.getAttribute('data-pkg-timeline') !== pkg;
+      });
+      const budget = document.getElementById('budget');
+      if (budget) budget.value = pkg;
+      const heading = document.querySelector('[data-timeline-heading]');
+      if (heading) heading.textContent = `从表单到上线,${days[pkg]} 个工作日。`;
+    })();
+  </script>
 </BaseLayout>

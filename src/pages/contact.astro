@@ -4,33 +4,32 @@ import Button from '../components/Button.astro';
 
 const FORM_ACTION = 'https://formspree.io/f/mojzklan';
 
-const timeline = [
-  {
-    when: 'Day 0',
-    title: 'You send this form',
-    body: "I reply within one working day with a fixed quote, a delivery date, and any clarifying questions.",
-  },
-  {
-    when: 'Day 1',
-    title: 'Deposit + brief',
-    body: '50% deposit locks the slot. We have a 30-minute call and I write a one-page brief you sign off.',
-  },
-  {
-    when: 'Day 2–5',
-    title: 'Build on staging',
-    body: "You watch a staging URL update daily. I send a short note every evening so you're never wondering.",
-  },
-  {
-    when: 'Day 6',
-    title: 'Revision round',
-    body: 'You send one consolidated list of changes. I work through them and send back for review.',
-  },
-  {
-    when: 'Day 7',
-    title: 'Ship',
-    body: 'Final 50% paid, site goes live on your domain with SSL, analytics, and a 30-day fix window.',
-  },
-];
+const timelines = {
+  starter: [
+    { when: 'Day 0', title: 'You send this form', body: 'I reply within one working day with a fixed quote, a delivery date, and any clarifying questions.' },
+    { when: 'Day 1', title: 'Deposit + brief', body: '50% deposit locks the slot. A quick call and a one-page brief you sign off.' },
+    { when: 'Day 2–3', title: 'Build on staging', body: 'Your single page comes together on a staging URL, with a short note from me each evening.' },
+    { when: 'Day 4', title: 'Revision round', body: 'You send one consolidated list of changes. I work through them and send back for review.' },
+    { when: 'Day 5', title: 'Ship', body: 'Final 50% paid, your page goes live on your domain with SSL, analytics, and a 30-day fix window.' },
+  ],
+  standard: [
+    { when: 'Day 0', title: 'You send this form', body: 'I reply within one working day with a fixed quote, a delivery date, and any clarifying questions.' },
+    { when: 'Day 1', title: 'Deposit + brief', body: '50% deposit locks the slot. We have a 30-minute call and I write a one-page brief you sign off.' },
+    { when: 'Day 2–5', title: 'Build on staging', body: "You watch a staging URL update daily. I send a short note every evening so you're never wondering." },
+    { when: 'Day 6', title: 'Revision round', body: 'You send one consolidated list of changes. I work through them and send back for review.' },
+    { when: 'Day 7', title: 'Ship', body: 'Final 50% paid, site goes live on your domain with SSL, analytics, and a 30-day fix window.' },
+  ],
+  bilingual: [
+    { when: 'Day 0', title: 'You send this form', body: 'I reply within one working day with a fixed quote, a delivery date, and any clarifying questions.' },
+    { when: 'Day 1', title: 'Deposit + brief', body: '50% deposit locks the slot. We have a 30-minute call and I write a one-page brief you sign off.' },
+    { when: 'Day 2–6', title: 'Build both languages', body: 'Five pages built on staging in English and 中文 — I write the Chinese copy myself, not Google Translate.' },
+    { when: 'Day 7', title: 'Native copy review', body: 'We review the Chinese together so it reads naturally to a native speaker, not like a translation.' },
+    { when: 'Day 8–9', title: 'Revision rounds', body: 'One consolidated list of changes per language. I work through both and send back for review.' },
+    { when: 'Day 10', title: 'Ship', body: 'Final 50% paid, the bilingual site goes live with hreflang, SSL, analytics, and a 30-day fix window.' },
+  ],
+};
+
+const defaultPkg = 'standard';
 ---
 
 <BaseLayout
@@ -100,9 +99,9 @@ const timeline = [
             class="mt-1.5 w-full rounded-[4px] border border-line bg-paper px-3 py-2.5 text-ink outline-none focus:border-pounamu"
           >
             <option value="">Pick a range</option>
-            <option value="starter">Starter — around NZ$690</option>
-            <option value="standard">Standard — around NZ$1,090</option>
-            <option value="bilingual">Bilingual — around NZ$1,790</option>
+            <option value="starter">Starter — around NZ$399</option>
+            <option value="standard">Standard — around NZ$699</option>
+            <option value="bilingual">Bilingual — around NZ$1,099</option>
             <option value="unsure">Not sure yet — talk it through</option>
           </select>
         </div>
@@ -130,19 +129,21 @@ const timeline = [
       <aside>
         <header class="mb-5">
           <p class="font-mono text-xs uppercase tracking-wider text-pounamu">Timeline</p>
-          <h2 class="mt-2 text-xl font-semibold text-ink sm:text-2xl">From form to live site.</h2>
+          <h2 data-timeline-heading class="mt-2 text-xl font-semibold text-ink sm:text-2xl">From form to live site.</h2>
         </header>
-        <ol class="space-y-4">
-          {
-            timeline.map((step) => (
-              <li class="rounded-[4px] border border-line bg-paper p-4 sm:p-5">
-                <p class="font-mono text-xs uppercase tracking-wider text-pounamu">{step.when}</p>
-                <p class="mt-1.5 font-semibold text-ink">{step.title}</p>
-                <p class="mt-1.5 text-sm text-ink/80">{step.body}</p>
-              </li>
-            ))
-          }
-        </ol>
+        {
+          Object.entries(timelines).map(([slug, steps]) => (
+            <ol class="space-y-4" data-pkg-timeline={slug} hidden={slug !== defaultPkg}>
+              {steps.map((step) => (
+                <li class="rounded-[4px] border border-line bg-paper p-4 sm:p-5">
+                  <p class="font-mono text-xs uppercase tracking-wider text-pounamu">{step.when}</p>
+                  <p class="mt-1.5 font-semibold text-ink">{step.title}</p>
+                  <p class="mt-1.5 text-sm text-ink/80">{step.body}</p>
+                </li>
+              ))}
+            </ol>
+          ))
+        }
       </aside>
     </div>
   </section>
@@ -159,4 +160,19 @@ const timeline = [
       </ul>
     </div>
   </section>
+
+  <script is:inline>
+    (function () {
+      const days = { starter: 5, standard: 7, bilingual: 10 };
+      const pkg = new URLSearchParams(location.search).get('package');
+      if (!(pkg in days)) return;
+      document.querySelectorAll('[data-pkg-timeline]').forEach((el) => {
+        el.hidden = el.getAttribute('data-pkg-timeline') !== pkg;
+      });
+      const budget = document.getElementById('budget');
+      if (budget) budget.value = pkg;
+      const heading = document.querySelector('[data-timeline-heading]');
+      if (heading) heading.textContent = `From form to live site in ${days[pkg]} working days.`;
+    })();
+  </script>
 </BaseLayout>
