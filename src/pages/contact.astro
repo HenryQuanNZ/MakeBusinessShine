@@ -164,15 +164,32 @@ const defaultPkg = 'standard';
   <script is:inline>
     (function () {
       const days = { starter: 5, standard: 7, bilingual: 10 };
-      const pkg = new URLSearchParams(location.search).get('package');
-      if (!(pkg in days)) return;
-      document.querySelectorAll('[data-pkg-timeline]').forEach((el) => {
-        el.hidden = el.getAttribute('data-pkg-timeline') !== pkg;
-      });
-      const budget = document.getElementById('budget');
-      if (budget) budget.value = pkg;
       const heading = document.querySelector('[data-timeline-heading]');
-      if (heading) heading.textContent = `From form to live site in ${days[pkg]} working days.`;
+      const budget = document.getElementById('budget');
+
+      function showTimeline(pkg) {
+        // Fall back to the default timeline for "unsure" or empty selections.
+        const target = pkg in days ? pkg : 'standard';
+        document.querySelectorAll('[data-pkg-timeline]').forEach((el) => {
+          el.hidden = el.getAttribute('data-pkg-timeline') !== target;
+        });
+        if (heading) {
+          heading.textContent =
+            pkg in days
+              ? `From form to live site in ${days[pkg]} working days.`
+              : 'From form to live site.';
+        }
+      }
+
+      // Prefill the dropdown and timeline from a ?package= link.
+      const pkg = new URLSearchParams(location.search).get('package');
+      if (pkg in days) {
+        if (budget) budget.value = pkg;
+        showTimeline(pkg);
+      }
+
+      // Keep the timeline in sync as the user changes the Budget dropdown.
+      if (budget) budget.addEventListener('change', () => showTimeline(budget.value));
     })();
   </script>
 </BaseLayout>
